@@ -1,4 +1,5 @@
 :set number
+:set relativenumber
 :set autoindent
 :set tabstop=4
 :set shiftwidth=4
@@ -19,6 +20,7 @@ source ~/.config/nvim/plug-config/coc.vim
 	Plug 'tomlion/vim-solidity' " Solidity syntax
 	Plug 'pangloss/vim-javascript'
 	Plug 'mxw/vim-jsx'
+	Plug 'yaegassy/coc-tailwindcss3', {'do': 'yarn install --frozen-lockfile'}
 	Plug 'preservim/vim-markdown'
 
 	" Features
@@ -33,6 +35,7 @@ source ~/.config/nvim/plug-config/coc.vim
 	Plug 'jiangmiao/auto-pairs'  
 	Plug 'pechorin/any-jump.vim'
 	Plug 'mhinz/vim-startify'
+	Plug 'tpope/vim-fugitive'
 
 	" Theming
 	Plug 'https://github.com/ap/vim-css-color' " CSS Color Preview
@@ -99,3 +102,12 @@ let g:limelight_conceal_ctermfg = 'gray'
 
 " Theme
 :colorscheme gruvbox
+
+let g:vim_markdown_override_foldtext = 0
+
+au BufRead * normal zr zr
+
+" Remap pageup/down to up/down codeblock
+:noremap <PageUp> }
+:noremap <PageDown> {
+
