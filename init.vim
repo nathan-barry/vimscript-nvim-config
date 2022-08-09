@@ -21,7 +21,8 @@ source ~/.config/nvim/plug-config/coc.vim
 	Plug 'pangloss/vim-javascript'
 	Plug 'mxw/vim-jsx'
 	Plug 'yaegassy/coc-tailwindcss3', {'do': 'yarn install --frozen-lockfile'}
-	Plug 'preservim/vim-markdown'
+	Plug 'neovim/nvim-lspconfig'
+    Plug 'simrat39/rust-tools.nvim'
 
 	" Features
 	Plug 'https://github.com/preservim/nerdtree' " NerdTree
@@ -31,11 +32,16 @@ source ~/.config/nvim/plug-config/coc.vim
 	Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " Fuzzy Finder
 	Plug 'junegunn/fzf.vim'
 	Plug 'junegunn/limelight.vim'
-	Plug 'mg979/vim-visual-multi', {'branch': 'master'}
-	Plug 'jiangmiao/auto-pairs'  
+	Plug 'mg979/vim-visual-multi', {'branch': 'master'} " ctrl-down ctrl-up
+	Plug 'jiangmiao/auto-pairs'
 	Plug 'pechorin/any-jump.vim'
-	Plug 'mhinz/vim-startify'
 	Plug 'tpope/vim-fugitive'
+    Plug 'vimwiki/vimwiki'
+	Plug 'github/copilot.vim' " Copilot
+    Plug 'airblade/vim-gitgutter'               " show changes in signcolumn
+    Plug 'alvan/vim-closetag'                   " autoclose html esq tags
+	Plug 'xolox/vim-misc'
+	Plug 'xolox/vim-session' "Sessions
 
 	" Theming
 	Plug 'https://github.com/ap/vim-css-color' " CSS Color Preview
@@ -46,14 +52,17 @@ source ~/.config/nvim/plug-config/coc.vim
 	call plug#end()
 
 " }
-	
+
+let mapleader = "\\"
+
 " File Tree {
-	nnoremap <C-f> :NERDTreeFocus<CR>
-	nnoremap <C-n> :NERDTree<CR>
 	nnoremap <C-t> :NERDTreeToggle<CR>
+	nnoremap <C-n> :NERDTree<CR>
+	nnoremap <C-f> :NERDTreeFocus<CR>
 	nnoremap <C-l> :call CocActionAsync('jumpDefinition')<CR>
 	let g:NERDTreeDirArrowExpandable="+"
 	let g:NERDTreeDirArrowCollapsible="~"
+	let NERDTreeQuitOnOpen=1
 " }
 
 " Fzf {
@@ -64,9 +73,6 @@ source ~/.config/nvim/plug-config/coc.vim
 
 " Toggle Tagbar
 nmap <C-d> :TagbarToggle<CR>
-
-" Toggle Markdown Folds
-nmap <Enter> za
 
 " Any Jump
 nmap gr :AnyJump<CR>
@@ -86,8 +92,6 @@ nmap gr :AnyJump<CR>
 
 	nmap <leader>rn <Plug>(coc-rename)
 
-	inoremap <expr> <Tab> pumvisible() ? coc#_select_confirm() : "<Tab>"'
-
 	nnoremap <silent> K :call CocAction('doHover')<CR>
 " }
 
@@ -103,11 +107,23 @@ let g:limelight_conceal_ctermfg = 'gray'
 " Theme
 :colorscheme gruvbox
 
-let g:vim_markdown_override_foldtext = 0
+" General Remaps
+:noremap <PageUp> {
+:noremap <PageDown> }
 
-au BufRead * normal zr zr
+" Command remappings
+command! -nargs=0 W :w
 
-" Remap pageup/down to up/down codeblock
-:noremap <PageUp> }
-:noremap <PageDown> {
+" Vimwiki
+let g:vimwiki_list = [{'path': '~/Markdown/',
+                      \ 'syntax': 'markdown', 'ext': '.md'}]
 
+" Copilot
+let g:copilot_filetypes = { '*': v:false}
+
+" Make double-<Esc> clear search highlights
+nnoremap <silent> <Esc><Esc> <Esc>:nohlsearch<CR><Esc>
+
+" Vim-Session {
+  let g:session_autosave = 'yes'                " auto save session periodically
+" }
