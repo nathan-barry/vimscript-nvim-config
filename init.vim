@@ -7,6 +7,11 @@
 :set splitright
 :set softtabstop=4
 :set mouse=a
+set nobackup
+set noswapfile
+set nowritebackup
+set ignorecase                    " ignore case when searching
+set smartcase  
 
 source ~/.config/nvim/plug-config/coc.vim
 
@@ -57,7 +62,6 @@ let mapleader = "\\"
 
 " File Tree {
 	nnoremap <C-t> :NERDTreeToggle<CR>
-	nnoremap <C-n> :NERDTree<CR>
 	nnoremap <C-f> :NERDTreeFocus<CR>
 	nnoremap <C-l> :call CocActionAsync('jumpDefinition')<CR>
 	let g:NERDTreeDirArrowExpandable="+"
@@ -113,6 +117,8 @@ let g:limelight_conceal_ctermfg = 'gray'
 
 " Command remappings
 command! -nargs=0 W :w
+command! -nargs=0 Q :q
+command! -nargs=0 T :tabnew
 
 " Vimwiki
 let g:vimwiki_list = [{'path': '~/Markdown/',
@@ -126,4 +132,5 @@ nnoremap <silent> <Esc><Esc> <Esc>:nohlsearch<CR><Esc>
 
 " Vim-Session {
   let g:session_autosave = 'yes'                " auto save session periodically
+  let g:session_autoload = 'no'
 " }
